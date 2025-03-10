@@ -7,7 +7,7 @@ gradio==4.44.0
 gradio-imageslider
 lpips==0.1.4
 pydantic>=2.6.1
-transformers==4.42.3
+transformers==4.48.0
 xformers
 einops==0.7.0
 timm==0.9.16
