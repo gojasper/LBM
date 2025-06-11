@@ -52,25 +52,17 @@ def convert_checkpoint_to_safetensors(
     else:
         raise ValueError("No 'state_dict' found in checkpoint")
     
-    # Remove "model." prefix from keys and filter out LPIPS loss weights
-    logger.info("Cleaning state dict - removing 'model.' prefix and filtering training-only weights")
+    # Remove "model." prefix from keys (as done in inference/utils.py line 76)
+    logger.info("Cleaning state dict - removing 'model.' prefix")
     cleaned_state_dict = {}
     model_prefix = "model."
     
     for key, value in state_dict.items():
         if key.startswith(model_prefix):
             new_key = key[len(model_prefix):]
-            # Skip LPIPS loss weights that are only used during training
-            if new_key.startswith("lpips_loss."):
-                logger.debug(f"Skipping training-only weight: {new_key}")
-                continue
             # Clone tensors to break memory sharing (fixes safetensors shared memory error)
             cleaned_state_dict[new_key] = value.clone()
         else:
-            # Skip LPIPS loss weights that don't have model prefix
-            if key.startswith("lpips_loss."):
-                logger.debug(f"Skipping training-only weight: {key}")
-                continue
             # Keep keys that don't have the model prefix
             cleaned_state_dict[key] = value.clone()
     
