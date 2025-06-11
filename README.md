@@ -130,6 +130,15 @@ python examples/inference/inference.py \
 --output_path output_images
 ```
 
+Or run weights locally with
+
+```bash
+python examples/inference/inference.py \
+--model_path path_to_local_model_directory \
+--source_image path_to_your_image.jpg \
+--output_path output_images
+```
+
 See the trained models on the HF Hub 🤗
 - [Surface normals Checkpoint](https://huggingface.co/jasperai/LBM_normals)
 - [Depth Checkpoint](https://huggingface.co/jasperai/LBM_depth)
@@ -161,6 +170,12 @@ To train the model, you can use the following command:
 
 ```bash
 python examples/training/train_lbm_surface.py examples/training/config/surface.yaml
+```
+
+To prune trained output ckpt to just model weights for inference
+
+```bash
+python examples/training/convert_checkpoint_to_safetensors.py --checkpoint_path examples/training/output --output_dir out
 ```
 
 *Note*: Make sure to update the relevant section of the `yaml` file to use your own data and log the results on your own [WandB](https://wandb.ai/site).

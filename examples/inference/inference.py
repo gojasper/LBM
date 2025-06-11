@@ -21,14 +21,24 @@ parser.add_argument(
     default="normals",
     choices=["normals", "depth", "relighting"],
 )
+parser.add_argument(
+    "--model_path",
+    type=str,
+    help="Path to local model directory (overrides model_name if provided)",
+)
 
 
 args = parser.parse_args()
 
 
 def main():
-    # download the weights from HF hub
-    if not os.path.exists(os.path.join(PATH, "ckpts", f"{args.model_name}")):
+    # Use custom model path if provided
+    if args.model_path:
+        logging.info(f"Loading LBM model from custom path: {args.model_path}")
+        model = get_model(args.model_path, torch_dtype=torch.bfloat16, device="cuda")
+    
+    # Otherwise use model_name with HF hub or local cache
+    elif not os.path.exists(os.path.join(PATH, "ckpts", f"{args.model_name}")):
         logging.info(f"Downloading {args.model_name} LBM model from HF hub...")
         model = get_model(
             f"jasperai/LBM_{args.model_name}",
