@@ -1,6 +1,6 @@
 """
 This module contains a collection of data related classes and functions to train the :mod:`cr.models`.
-In a training loop a batch of data is struvtued as a dictionnary on which the modules :mod:`cr.data.datasets`
+In a training loop a batch of data is structured as a dictionary on which the modules :mod:`cr.data.datasets`
 and :mod:`cr.data.filters` allow to perform several operations.
 
 

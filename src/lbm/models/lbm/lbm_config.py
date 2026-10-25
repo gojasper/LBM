@@ -58,7 +58,7 @@ class LBMConfig(ModelConfig):
             Standard deviation of the logit for the log normal distribution. Defaults to 1.0
 
         guidance_scale (Optional[float]):
-            The guidance scale. Useful for finetunning guidance distilled diffusion models. Defaults to None
+            The guidance scale. Useful for finetuning guidance distilled diffusion models. Defaults to None
 
         selected_timesteps (Optional[List[float]]):
             List of selected timesteps to be sampled from if using `custom_timesteps` timestep sampling. Defaults to None
